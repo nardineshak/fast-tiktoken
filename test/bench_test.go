@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/nardineshak/fast-tiktoken"
+	"github.com/nardineshak/fast-tiktoken/codec"
 )
 
 var sentences []string = []string{"This is a long sentence that includes special characters like @, #, $ and % to test the OpenAI's tokenizer's ability to identify and separate these symbols.",
@@ -33,16 +33,15 @@ var paragraph2 string = "OpenAI's large language models (sometimes referred to a
 
 func benchmarkTokenize(str string, b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Tokenize(str)
+		codec.Tokenize(str)
 	}
 }
 
 func benchmarkEstimateTokens(str string, b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		EstimateTokens(str)
+		codec.EstimateTokens(str)
 	}
 }
-
 
 func BenchmarkTokenizeSentences(b *testing.B) {
 	for _, str := range sentences {
@@ -56,12 +55,11 @@ func BenchmarkEstimateTokensSentences(b *testing.B) {
 	}
 }
 
-func BenchmarkTokenizeParagraph1(b *testing.B) { benchmarkTokenize(paragraph1, b) } 
+func BenchmarkTokenizeParagraph1(b *testing.B)       { benchmarkTokenize(paragraph1, b) }
 func BenchmarkEstimateTokensParagraph1(b *testing.B) { benchmarkEstimateTokens(paragraph1, b) }
 
-func BenchmarkTokenizeParagraph2(b *testing.B) { benchmarkTokenize(paragraph2, b) } 
+func BenchmarkTokenizeParagraph2(b *testing.B)       { benchmarkTokenize(paragraph2, b) }
 func BenchmarkEstimateTokensParagraph2(b *testing.B) { benchmarkEstimateTokens(paragraph2, b) }
-
 
 // func BenchmarkTokenizeS1(b *testing.B) { benchmarkTokenize(sentences[0], b) }
 // func BenchmarkTokenizeS2(b *testing.B) { benchmarkTokenize(sentences[1], b) }

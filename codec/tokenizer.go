@@ -1,7 +1,5 @@
 package codec
 
-import "github.com/nardineshak/fast-tiktoken/codec"
-
 func Tokenize(str string) []uint {
 	// need to access the c100k_base map
 	if len(str) == 0 {
@@ -21,8 +19,8 @@ func Tokenize(str string) []uint {
 	for pos, _ := range runeSlice {
 		r := runeSlice[startIndex:endIndex]
 		s := string(r)
-		if _, ok := codec.Cl100kBaseVocab[s]; startIndex < endIndex && ok {
-			result = append(result, codec.Cl100kBaseVocab[s])
+		if _, ok := Cl100kBaseVocab[s]; startIndex < endIndex && ok {
+			result = append(result, Cl100kBaseVocab[s])
 			startIndex = endIndex
 			endIndex += 1
 		} else {
@@ -33,8 +31,8 @@ func Tokenize(str string) []uint {
 	if startIndex < endIndex && endIndex <= len(str) {
 		r := runeSlice[startIndex:endIndex]
 		s := string(r)
-		if _, ok := codec.Cl100kBaseVocab[s]; startIndex < endIndex && ok {
-			result = append(result, codec.Cl100kBaseVocab[s])
+		if _, ok := Cl100kBaseVocab[s]; startIndex < endIndex && ok {
+			result = append(result, Cl100kBaseVocab[s])
 		}
 	}
 
@@ -61,7 +59,7 @@ func EstimateTokens(str string) int {
 	for pos, _ := range runeSlice {
 		r := runeSlice[startIndex:endIndex]
 		s := string(r)
-		if _, ok := codec.Cl100kBaseVocab[s]; startIndex < endIndex && ok {
+		if _, ok := Cl100kBaseVocab[s]; startIndex < endIndex && ok {
 			result += 1
 			startIndex = endIndex
 			endIndex += 1
@@ -73,7 +71,7 @@ func EstimateTokens(str string) int {
 	if startIndex < endIndex && endIndex <= len(str) {
 		r := runeSlice[startIndex:endIndex]
 		s := string(r)
-		if _, ok := codec.Cl100kBaseVocab[s]; startIndex < endIndex && ok {
+		if _, ok := Cl100kBaseVocab[s]; startIndex < endIndex && ok {
 			result += 1
 		}
 	}
